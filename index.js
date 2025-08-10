@@ -36,15 +36,45 @@ function bake(text) {
     var seperate = text.split("\n");
     var keyWord = bakeList.map((e) => e.keyword);
     var resultList = [];
+
     seperate.forEach((element) => {
         var compoment = element.split(" ");
-        if (!keyWord.includes(compoment[0])) {
-            console.log("what the fuck is " + compoment[0]);
+        var method = undefined
+        var command = undefined
+
+        if (compoment[0] == "#") {
+            resultList.push("#" + compoment.slice(1).join(" "))
+        } else if (!keyWord.includes(compoment[1])) {
+            console.log("what the fuck is " + compoment[1]);
             return;
+        }else if (!isNaN(Number(compoment[0]))) {
+            method = bakeList[keyWord.indexOf(compoment[1])];
+            command = method.translate(compoment.slice(2))
+
+            if (command.includes("\n")) {
+                command.split("\n").forEach((e) => {
+                    resultList.push(`execute as @a[scores={cutscene.tick=${compoment[0]}},c=1] ${e}`);
+                })
+            } else {
+                resultList.push(`execute as @a[scores={cutscene.tick=${compoment[0]}},c=1] ${method.translate(compoment.slice(1))}`);
+            }
+            
+        } else {
+            console.log("wow: " + compoment[0]);
+            method = bakeList[keyWord.indexOf(compoment[0])];
+            command = method.translate(compoment.slice(1))
+
+            if (command.includes("\n")) {
+                command.split("\n").forEach((e) => {
+                    resultList.push(`execute as @a ${e}`);
+                })
+            } else {
+                resultList.push(`execute as @a ${method.translate(compoment.slice(1))}`);
+            }
+            
         }
-        var method = bakeList[keyWord.indexOf(compoment[0])];
-        resultList.push(method.translate(compoment.slice(1)));
-        console.log("result: " + method.translate(compoment.slice(1)));
+        
     });
+
     return resultList.join("\n");
 }
