@@ -29,9 +29,9 @@ Do it yourself. I'm not helping you.
 
 
 ## Any bug
-
-Fix it yourself.
-I already fixed every bug my knowledge is able to fix.
+Every bug is because of the holy reason by God.  
+Not my fault.  
+It works on my computer.
 
 
 ## How to use
