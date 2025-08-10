@@ -1,5 +1,0 @@
-20 say cool thing 
-100 command title @a title betgwegtbh
-50 node walk 0 100 20 2
-# balabo balaba
-60 node walk 19 89 64 2
