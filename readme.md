@@ -1,6 +1,7 @@
 # HOLY MAKE
-**write less, bug more**
-
+**write less, bug more**  
+***write 58% less code***
+  
 ## Compile a text to mcfunction
 **Input:**
 ```fuck
