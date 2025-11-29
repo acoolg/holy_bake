@@ -1,4 +1,4 @@
-# HOLY MAKE
+# HOLY BAKE
 **write less, bug more**  
 ***write 58% less code***
   
@@ -45,3 +45,7 @@ npm run make
 ```
 
 3. The result will be in a folder called `holy_function`.
+
+## also
+if you don't understand what the hell is `runners:walk_target` or `npcmove.index`
+well that's a new mcbe addon i'm working on
