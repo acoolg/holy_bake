@@ -1,16 +1,19 @@
 # HOLY BAKE
+
 **write less, bug more**  
-***write 58% less code***
-  
+**_write 58% less code_**
+
 ## Compile a text to mcfunction
+
 **Input:**
+
 ```fuck
 20 say cool thing
 100 command title @a title betgwegtbh
 50 node walk 0 100 20 2
 # balabo balaba aaa
 60 node walk 19 89 64 2
-````
+```
 
 **Output:**
 
@@ -28,12 +31,11 @@ execute as @a[scores={cutscene.tick=60},c=1] positioned 19 89 64 run scoreboard 
 
 Do it yourself. I'm not helping you.
 
-
 ## Any bug
+
 Every bug is because of the holy reason by God.  
 Not my fault.  
 It works on my computer.
-
 
 ## How to use
 
@@ -47,5 +49,6 @@ npm run make
 3. The result will be in a folder called `holy_function`.
 
 ## also
+
 if you don't understand what the hell is `runners:walk_target` or `npcmove.index`
 well that's a new mcbe addon i'm working on

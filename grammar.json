@@ -2,13 +2,10 @@
     {
         "name": "make",
         "type": "variableDeclaration",
-        "espects": [
-            "string",
-            "number"
-        ]
+        "espects": ["string", "number"]
     },
     {
         "name": "+",
-        "type":""
+        "type": ""
     }
 ]

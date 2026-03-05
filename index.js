@@ -1,12 +1,18 @@
-import * as fs from "node:fs"
+import * as fs from "node:fs";
 import * as process from "node:process";
 
 const command = process.argv[2];
 
 if (command == "make") {
     fs.readdir("./holy_text", function (err, files) {
-        
-    })
+        files.forEach((e) => {
+            fs.readFile(e, "utf8", function (err, data) {
+                if (err) throw err;
+                console.log(data.toString());
+                execute(data.toString());
+            });
+        });
+    });
 } else if (command == "test") {
     fs.readFile("test.txt", "utf8", function (err, data) {
         if (err) throw err;
@@ -23,6 +29,9 @@ function execute(code) {
     while (pointer < length) {
         if (token[pointer] == "(") {
             console.log(findCloseBrecket());
+            pointer = findCloseBrecket();
+        } else {
+            console.log(getKeyword());
         }
         pointer++;
     }
@@ -45,7 +54,12 @@ function execute(code) {
         }
     }
 
-    function parse() {
-        var newPointer = pointer + 1;
+    function getKeyword() {
+        var keyword = [];
+        while (token[pointer] !== "(") {
+            keyword.push(token[pointer]);
+            pointer++;
+        }
+        return keyword;
     }
 }

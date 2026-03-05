@@ -12,7 +12,9 @@
         "doctor": "npm audit && npm outdated",
         "fuck": "rm -rf /",
         "safe-fuck": "lutris lutris:rungame/genshin-impact",
-        "weather": "curl wttr.in"
+        "weather": "curl wttr.in",
+        "tired:windows": "shutdown -s -f -t 0",
+        "format": "npx prettier --tab-width 4 . --write"
     },
     "author": "acoolg",
     "license": "MIT",
@@ -27,6 +29,7 @@
         "eslint": "^9.39.3",
         "globals": "^16.5.0",
         "jiti": "^2.6.1",
+        "prettier": "3.8.1",
         "typescript-eslint": "^8.56.1"
     }
 }
