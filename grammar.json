@@ -1,0 +1,16 @@
+[
+    {
+        "name": "make",
+        "type": "variableDeclaration",
+        "espects": [
+            {
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "name": "value",
+                "type": "string"
+            }
+        ]
+    }
+]

@@ -6,23 +6,12 @@
     "configurations": [
         {
             "name": "Launch Program",
-            "program": "${workspaceFolder}/app.js",
+            "program": "${workspaceFolder}/index.js",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "type": "node"
-        },
-        
-
-        {
-            "type": "minecraft-js",
-            "request": "attach",
-            "name": "Attach to Minecraft",
-            "mode": "connect",
-            "localRoot": "${workspaceFolder}/scripts",
-            "host": "localhost",
-            "port": 19144
         }
     ]
 }
