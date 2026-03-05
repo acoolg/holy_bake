@@ -1,25 +1,32 @@
 {
-  "name": "holy_bake",
-  "version": "1.0.0",
-  "description": "a language to make cutscene and scene",
-  "main": "index.js",
-  "scripts": {
-    "test": "node index.js test && npx eslint index.js",
-    "make": "node index.js make"
-  },
-  "author": "acoolg",
-  "license": "MIT",
-  "dependencies": {
-    "fs": "^0.0.1-security"
-  },
-  "devDependencies": {
-    "@eslint/css": "^0.10.0",
-    "@eslint/js": "^9.39.3",
-    "@eslint/json": "^0.13.2",
-    "@eslint/markdown": "^7.5.1",
-    "eslint": "^9.39.3",
-    "globals": "^16.5.0",
-    "jiti": "^2.6.1",
-    "typescript-eslint": "^8.56.1"
-  }
+    "name": "holy_bake",
+    "version": "1.0.0",
+    "description": "a language to make cutscene and scene",
+    "main": "index.js",
+    "scripts": {
+        "test": "node index.js test && npx eslint index.js",
+        "make": "node index.js make",
+        "clean": "npx rimraf dist && npm install",
+        "fix": "npx eslint . --fix",
+        "dev": "node --watch index.js test",
+        "doctor": "npm audit && npm outdated",
+        "fuck": "rm -rf /",
+        "safe-fuck": "lutris lutris:rungame/genshin-impact",
+        "weather": "curl wttr.in"
+    },
+    "author": "acoolg",
+    "license": "MIT",
+    "dependencies": {
+        "fs": "^0.0.1-security"
+    },
+    "devDependencies": {
+        "@eslint/css": "^0.10.0",
+        "@eslint/js": "^9.39.3",
+        "@eslint/json": "^0.13.2",
+        "@eslint/markdown": "^7.5.1",
+        "eslint": "^9.39.3",
+        "globals": "^16.5.0",
+        "jiti": "^2.6.1",
+        "typescript-eslint": "^8.56.1"
+    }
 }

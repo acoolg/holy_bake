@@ -44,4 +44,8 @@ function execute(code) {
             newPointer++;
         }
     }
+
+    function parse() {
+        var newPointer = pointer + 1;
+    }
 }
