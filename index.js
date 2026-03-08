@@ -6,7 +6,7 @@ const command = process.argv[2];
 if (command == "make") {
     fs.readdir("./holy_text", function (err, files) {
         files.forEach((e) => {
-            fs.readFile(e, "utf8", function (err, data) {
+            fs.readFile("./holy_text/" + e, "utf8", function (err, data) {
                 if (err) throw err;
                 console.log(data.toString());
                 execute(data.toString());
@@ -16,8 +16,9 @@ if (command == "make") {
 } else if (command == "test") {
     fs.readFile("test.txt", "utf8", function (err, data) {
         if (err) throw err;
-        console.log(data.toString());
-        execute(data.toString());
+        var a = execute(data.toString());
+        console.log(JSON.stringify(a));
+        console.dir(a, { depth: null, colors: true });
     });
 }
 
@@ -25,22 +26,60 @@ function execute(code) {
     var pointer = 0;
     const token = code.split("");
     const length = token.length;
+    var tree = [];
+
+    token.push("EOF");
+
+    const blank = ["\n", "\r", " ", "\t", ","];
 
     while (pointer < length) {
-        if (token[pointer] == "(") {
-            console.log(findCloseBrecket());
-            pointer = findCloseBrecket();
+        let name = getKeyword();
+
+        if (blank.includes(token[pointer])) {
+            pointer++;
+            continue;
+        } else if (token[pointer] == "(") {
+            console.log(findCloseBracket());
+            let closeIdx = findCloseBracket();
+            let insideContent = code.substring(pointer + 1, closeIdx);
+            console.log(insideContent);
+
+            const seperateContent = scopeCommaSplit(insideContent);
+            console.warn(
+                "sigma" + JSON.stringify(scopeCommaSplit(insideContent)),
+            );
+            var inside = [];
+
+            seperateContent.forEach((e) => {
+                inside.push(execute(e));
+                console.log(execute(e));
+            });
+
+            tree.push({
+                name: name,
+                inside: inside,
+            });
+
+            pointer = closeIdx + 1;
         } else {
-            console.log(getKeyword());
+            // It's just a standalone value (like "a" or "10")
+            if (name.length > 0) {
+                tree.push({ name: name, inside: [] });
+            }
         }
+
         pointer++;
     }
+    if (tree.length == 1) {
+        return tree[0];
+    }
+    return tree;
 
-    function findCloseBrecket() {
+    function findCloseBracket() {
         var newPointer = pointer + 1;
         var buffer = 1;
 
-        while (newPointer < length) {
+        while (true) {
             if (token[newPointer] == "(") {
                 buffer++;
             } else if (token[newPointer] == ")") {
@@ -54,12 +93,61 @@ function execute(code) {
         }
     }
 
+    function scopeCommaSplit(text) {
+        var scope = 0;
+        var splitResult = [];
+        var cache = [];
+
+        // var commaNum = 0;
+
+        // for (let i = 0; i < text.length; i++) {
+        //     if (text[i] == "(") {
+        //         scope++;
+        //     } else if (text[i] == ")") {
+        //         scope--;
+        //     } else if (scope == 0 && text[i] == ",") {
+        //         commaNum = commaNum + 1;
+        //     }
+        // }
+
+        // scope = 0;
+        // splitResult = [];
+        // cache = [];
+
+        var count = 0;
+
+        for (let i = 0; i < text.length; i++) {
+            if (text[i] == "(") {
+                scope++;
+                cache.push(text[i]);
+            } else if (text[i] == ")") {
+                scope--;
+                cache.push(text[i]);
+            } else if (scope == 0 && text[i] == ",") {
+                splitResult.push(cache.join(""));
+                cache = [];
+                count = count + 1;
+            } else {
+                cache.push(text[i]);
+            }
+        }
+
+        splitResult.push(cache.join(""));
+
+        return splitResult;
+    }
+
     function getKeyword() {
         var keyword = [];
-        while (token[pointer] !== "(") {
+        while (token[pointer] !== "(" && token[pointer] !== "EOF") {
+            if (blank.includes(token[pointer])) {
+                pointer++;
+                continue;
+            }
             keyword.push(token[pointer]);
             pointer++;
         }
-        return keyword;
+        // pointer--;
+        return keyword.join("");
     }
 }

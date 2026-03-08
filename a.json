@@ -1,0 +1,20 @@
+[
+    {
+        "name": "make",
+        "inside": [
+            { "name": "a", "inside": [] },
+            { "name": "10", "inside": [] }
+        ]
+    },
+    {
+        "name": "add",
+        "inside": [
+            { "name": "a", "inside": [] },
+            { "name": "20", "inside": [] }
+        ]
+    },
+    { "name": "pointer", "inside": [
+        { "name": "a", "inside": [] }
+        ] 
+    }
+]
