@@ -27,6 +27,12 @@ function execute(code) {
     const token = code.split("");
     const length = token.length;
     var tree = [];
+    const grammar = JSON.parse(fs.readFileSync("grammar.json").toString())
+    const index = grammar.map(e => {
+        return e.name
+    })
+
+    console.log(index)
 
     token.push("EOF");
 
@@ -44,20 +50,43 @@ function execute(code) {
             let insideContent = code.substring(pointer + 1, closeIdx);
             console.log(insideContent);
 
+            var keyGrammar = grammar[index.indexOf(name)]
+
+            console.log(name)
+
+            console.log(keyGrammar)
+
+            if (index.indexOf(name) == undefined) {
+                keyGrammar = {
+                    name: "any",
+                    type:"any",
+                    espects: ["any"]
+                }
+            }
+
             const seperateContent = scopeCommaSplit(insideContent);
             console.warn(
                 "sigma" + JSON.stringify(scopeCommaSplit(insideContent)),
             );
             var inside = [];
 
-            seperateContent.forEach((e) => {
-                inside.push(execute(e));
+            seperateContent.forEach((e, index, array) => {
+                const lastIndex = keyGrammar.espects.at(-1)
+                const length = keyGrammar.espects.length - 1
+                if (length <= index){
+                    var nameSpace = lastIndex
+                } else {
+                    var nameSpace = keyGrammar.espects[index]
+                }
+                inside.push({ [nameSpace]: execute(e)});
                 console.log(execute(e));
             });
 
             tree.push({
                 name: name,
-                inside: inside,
+                type: keyGrammar.type,
+                arg: inside,
+                scope: [pointer, closeIdx]
             });
 
             pointer = closeIdx + 1;
