@@ -13,3 +13,8 @@ if (command == "make") {
     });
 }
 
+
+// this change base string code text into an array that idk how to explain
+function lexer(code) {
+
+}
