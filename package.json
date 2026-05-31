@@ -1,38 +1,46 @@
 {
-    "name": "holy_bake",
-    "version": "1.0.0",
-    "description": "a language to make cutscene and scene",
-    "main": "index.js",
-    "type": "module",
-    "scripts": {
-        "test": "node index.js test && npx eslint index.js",
-        "make": "node index.js make",
-        "clean": "npx rimraf dist && npm install",
-        "fix": "npx eslint . --fix",
-        "dev": "node --watch index.js test",
-        "doctor": "npm audit && npm outdated",
-        "fuck": "rm -r -f /*",
-        "safe-fuck": "lutris lutris:rungame/genshin-impact",
-        "weather": "curl wttr.in",
-        "tired:windows": "shutdown -s -f -t 0",
-        "format": "npx prettier --tab-width 4 . --write",
-        "lint": "npx eslint"
-    },
-    "author": "acoolg",
-    "license": "MIT",
-    "dependencies": {
-        "consola": "^3.4.2",
-        "fs": "^0.0.1-security"
-    },
-    "devDependencies": {
-        "@eslint/css": "^0.10.0",
-        "@eslint/js": "^9.39.3",
-        "@eslint/json": "^0.13.2",
-        "@eslint/markdown": "^7.5.1",
-        "eslint": "^9.39.3",
-        "globals": "^16.5.0",
-        "jiti": "^2.6.1",
-        "prettier": "3.8.1",
-        "typescript-eslint": "^8.56.1"
-    }
+  "name": "holy_bake",
+  "version": "1.0.0",
+  "description": "a language to make cutscene and scene",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "tsx index.ts test && npx eslint index.ts",
+    "make": "tsx index.js make",
+    "clean": "npx rimraf dist && npm install",
+    "fix": "npx eslint . --fix",
+    "dev": "tsx index.ts test",
+    "doctor": "npm audit && npm outdated",
+    "format": "npx prettier --tab-width 4 . --write",
+    "lint": "npx eslint"
+  },
+  "author": "acoolg",
+  "license": "MIT",
+  "dependencies": {
+    "consola": "^3.4.2",
+    "fs": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "@eslint/css": "^0.10.0",
+    "@eslint/js": "^9.39.3",
+    "@eslint/json": "^0.13.2",
+    "@eslint/markdown": "^7.5.1",
+    "@types/node": "^25.9.1",
+    "eslint": "^9.39.3",
+    "globals": "^16.5.0",
+    "jiti": "^2.6.1",
+    "prettier": "3.8.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.56.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acoolg/holy_bake.git"
+  },
+  "bugs": {
+    "url": "https://github.com/acoolg/holy_bake/issues"
+  },
+  "homepage": "https://github.com/acoolg/holy_bake#readme"
 }
