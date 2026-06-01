@@ -15,6 +15,7 @@ function logger(title: string, text: any) {
 
 }
 
+
 if (command == "make") {
     fs.readdir(
         "./holy_text",
