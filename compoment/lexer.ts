@@ -4,20 +4,19 @@ export type Token = {
 };
 
 export default function (code: string): Token[] {
-    var token = tokenize(code);
+    const token = tokenize(code);
 
     logger("token", token)
 
     return token
 
-
-
     function tokenize(code: string): Token[] {
-        const validFullString: string[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890$_".split("");
+        const validFullString: string[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_".split("");
         const validExecCharacter: string[] = "!<>=".split("");
+        const numberString: string[] = "0123456789".split("")
 
-        var slice: number = 0
-        var token: Token[] = []
+        let slice: number = 0
+        let token: Token[] = []
 
         // tokenize loop
         while (code !== "") {
@@ -25,22 +24,32 @@ export default function (code: string): Token[] {
 
             const keyCharacter = code.charAt(0)
 
-            if (validFullString.includes(keyCharacter)) { // thing situation
+            if (validFullString.includes(keyCharacter) && keyCharacter !== ".") { // thing situation
                 const keyword = getKeyWord(code)
                 slice = keyword.slice
-                if (isStringedNumber(keyword.key)) {
-                    token.push({
-                        type: "number",
-                        value: keyword.key
-                    })
-                } else {
-                    token.push({
-                        type: "thing",
-                        value: keyword.key
-                    })
-                }
+
+                token.push({
+                    type: "thing",
+                    value: keyword.key
+                })
 
                 logger("sliced thing", keyword)
+            } else if (keyCharacter === ".") {
+                token.push({
+                    type: "dot",
+                    value: "."
+                })
+                slice = 1
+            } else if (numberString.includes(keyCharacter)) {
+                const keyword = getKeyNumber(code)
+                slice = keyword.slice
+
+                token.push({
+                    type: "number",
+                    value: keyword.key
+                })
+
+                logger("sliced number", keyword)
             } else if (keyCharacter == "(") { // bracket situation
                 token.push({
                     type: "openRoundBracket",
@@ -86,8 +95,8 @@ export default function (code: string): Token[] {
         return token
 
         function getKeyString(text) {
-            var pointer: number = 1;
-            var key: string[] = ["\""];
+            let pointer: number = 1;
+            let key: string[] = ["\""];
 
             while (text.charAt(pointer) !== "\"") {
                 key.push(text.charAt(pointer));
@@ -103,9 +112,27 @@ export default function (code: string): Token[] {
             };
         }
 
+        function getKeyNumber(text) {
+            const numberString: string[] = "0123456789.".split("")
+
+            let pointer: number = 0;
+            let key: string[] = [];
+
+            while (numberString.includes(text.charAt(pointer))) {
+                key.push(text.charAt(pointer));
+                pointer += 1;
+            }
+
+            return {
+                key: key.join(""),
+                slice: pointer
+            };
+        }
+
         function getKeyWord(text) {
-            var pointer: number = 0;
-            var key: string[] = [];
+            const validFullString: string[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890$_".split("");
+            let pointer: number = 0;
+            let key: string[] = [];
             while (validFullString.includes(text.charAt(pointer))) {
                 key.push(text.charAt(pointer));
                 pointer += 1;
@@ -117,8 +144,8 @@ export default function (code: string): Token[] {
         }
 
         function getKeyExec(text) {
-            var pointer: number = 0;
-            var key: string[] = [];
+            let pointer: number = 0;
+            let key: string[] = [];
             while (validExecCharacter.includes(text.charAt(pointer))) {
                 key.push(text.charAt(pointer));
                 pointer += 1;
@@ -131,8 +158,8 @@ export default function (code: string): Token[] {
         }
 
         function isStringedNumber(string: string): boolean {
-            const numberString: string[] = "0123456789".split("")
-            for (var i = 0; i < string.length; i++) {
+            const numberString: string[] = "0123456789.".split("")
+            for (let i = 0; i < string.length; i++) {
                 if (!numberString.includes(string.charAt(i))) {
                     logger("ain't number", string)
                     return false
@@ -143,12 +170,10 @@ export default function (code: string): Token[] {
     }
 }
 
-function logger(title: string, text: any) {
+function logger(title: string, text: unknown) {
     if (typeof text == "number" || typeof text == "string") {
         console.log(`[${title}]: ` + text)
     } else {
         console.log(`[${title}]:`, text)
     }
-
-
 }

@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import * as process from "node:process";
 import {default as lexer, Token} from "./compoment/lexer.ts"
+import {default as parser } from "./compoment/parser.js"
 
 const command: string | undefined = process.argv[2];
 
@@ -34,4 +35,5 @@ if (command == "make") {
 
 function execution(code) {
     const token = lexer(code)
+    parser(token)
 }
