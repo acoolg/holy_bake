@@ -1,104 +1,117 @@
 export type Token = {
-    type: string;
+    type:
+        | "thing"
+        | "dot"
+        | "number"
+        | "exec"
+        | "nextLine"
+        | "openRoundBracket"
+        | "closeRoundBracket"
+        | "openSquareBracket"
+        | "closeSquareBracket"
+        | "openCurlyBracket"
+        | "closeCurlyBracket";
     value: string;
 };
 
 export default function (code: string): Token[] {
     const token = tokenize(code);
 
-    logger("token", token)
+    logger("token", token);
 
-    return token
+    return token;
 
     function tokenize(code: string): Token[] {
-        const validFullString: string[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_".split("");
+        const validFullString: string[] =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_".split("");
         const validExecCharacter: string[] = "!<>=".split("");
-        const numberString: string[] = "0123456789".split("")
+        const numberString: string[] = "0123456789".split("");
+        const bracketString: string[] = "()[]{}".split("");
 
-        let slice: number = 0
-        let token: Token[] = []
+        let slice: number = 0;
+        const token: Token[] = [];
 
         // tokenize loop
         while (code !== "") {
-            code = code.slice(slice)
+            code = code.slice(slice);
 
-            const keyCharacter = code.charAt(0)
+            const keyCharacter = code.charAt(0);
 
-            if (validFullString.includes(keyCharacter) && keyCharacter !== ".") { // thing situation
-                const keyword = getKeyWord(code)
-                slice = keyword.slice
+            if (
+                validFullString.includes(keyCharacter) &&
+                keyCharacter !== "."
+            ) {
+                // thing situation
+                const keyword = getKeyWord(code);
+                slice = keyword.slice;
 
                 token.push({
                     type: "thing",
-                    value: keyword.key
-                })
+                    value: keyword.key,
+                });
 
-                logger("sliced thing", keyword)
+                logger("sliced thing", keyword);
             } else if (keyCharacter === ".") {
                 token.push({
                     type: "dot",
-                    value: "."
-                })
-                slice = 1
+                    value: ".",
+                });
+                slice = 1;
             } else if (numberString.includes(keyCharacter)) {
-                const keyword = getKeyNumber(code)
-                slice = keyword.slice
+                const keyword = getKeyNumber(code);
+                slice = keyword.slice;
 
                 token.push({
                     type: "number",
-                    value: keyword.key
-                })
+                    value: keyword.key,
+                });
 
-                logger("sliced number", keyword)
-            } else if (keyCharacter == "(") { // bracket situation
+                logger("sliced number", keyword);
+            } else if (bracketString.includes(keyCharacter)) {
+                // bracket situation
                 token.push({
-                    type: "openRoundBracket",
-                    value: "("
-                })
-                slice = 1
-            } else if (keyCharacter == ")") {
-                token.push({
-                    type: "closeRoundBracket",
-                    value: ")"
-                })
-                slice = 1
-            } else if (validExecCharacter.includes(keyCharacter)) { // !, <, >, = situation
-                const keyword = getKeyExec(code)
-                slice = keyword.slice
+                    type: getKeyBracket(keyCharacter),
+                    value: keyCharacter,
+                });
+                slice = 1;
+            } else if (validExecCharacter.includes(keyCharacter)) {
+                // !, <, >, = situation
+                const keyword = getKeyExec(code);
+                slice = keyword.slice;
                 token.push({
                     type: "exec",
-                    value: keyword.key
-                })
-                logger("sliced exec", keyword)
-            } else if (keyCharacter == ";") { // ; situation
+                    value: keyword.key,
+                });
+                logger("sliced exec", keyword);
+            } else if (keyCharacter == ";") {
+                // ; situation
                 token.push({
                     type: "nextLine",
-                    value: ";"
-                })
-                slice = 1
-            } else if (keyCharacter == "\"") {
-                const keyword = getKeyString(code)
-                slice = keyword.slice
+                    value: ";",
+                });
+                slice = 1;
+            } else if (keyCharacter == '"') {
+                const keyword = getKeyString(code);
+                slice = keyword.slice;
                 token.push({
                     type: "string",
-                    value: keyword.key
-                })
-                logger("sliced \"", keyword)
-                logger("now", code)
+                    value: keyword.key,
+                });
+                logger('sliced "', keyword);
+                logger("now", code);
             } else {
-                slice = 1
-                logger("now", code)
+                slice = 1;
+                logger("now", code);
             }
-
         }
 
-        return token
+        return token;
 
         function getKeyString(text) {
             let pointer: number = 1;
-            let key: string[] = ["\""];
+            const key: string[] = ['"'];
 
-            while (text.charAt(pointer) !== "\"") {
+            while (text.charAt(pointer) !== '"') {
                 key.push(text.charAt(pointer));
                 pointer += 1;
             }
@@ -108,15 +121,15 @@ export default function (code: string): Token[] {
 
             return {
                 key: key.join(""),
-                slice: pointer
+                slice: pointer,
             };
         }
 
         function getKeyNumber(text) {
-            const numberString: string[] = "0123456789.".split("")
+            const numberString: string[] = "0123456789.".split("");
 
             let pointer: number = 0;
-            let key: string[] = [];
+            const key: string[] = [];
 
             while (numberString.includes(text.charAt(pointer))) {
                 key.push(text.charAt(pointer));
@@ -125,27 +138,30 @@ export default function (code: string): Token[] {
 
             return {
                 key: key.join(""),
-                slice: pointer
+                slice: pointer,
             };
         }
 
         function getKeyWord(text) {
-            const validFullString: string[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890$_".split("");
+            const validFullString: string[] =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890$_".split(
+                    "",
+                );
             let pointer: number = 0;
-            let key: string[] = [];
+            const key: string[] = [];
             while (validFullString.includes(text.charAt(pointer))) {
                 key.push(text.charAt(pointer));
                 pointer += 1;
             }
             return {
                 key: key.join(""),
-                slice: pointer
+                slice: pointer,
             };
         }
 
         function getKeyExec(text) {
             let pointer: number = 0;
-            let key: string[] = [];
+            const key: string[] = [];
             while (validExecCharacter.includes(text.charAt(pointer))) {
                 key.push(text.charAt(pointer));
                 pointer += 1;
@@ -153,27 +169,40 @@ export default function (code: string): Token[] {
 
             return {
                 key: key.join(""),
-                slice: pointer
+                slice: pointer,
             };
         }
 
+        function getKeyBracket(text) {
+            const Bracket = {
+                "(": "openRoundBracket",
+                ")": "closeRoundBracket",
+                "[": "openSquareBracket",
+                "]": "closeSquareBracket",
+                "{": "openCurlyBracket",
+                "}": "closeCurlyBracket",
+            };
+
+            return Bracket[text];
+        }
+
         function isStringedNumber(string: string): boolean {
-            const numberString: string[] = "0123456789.".split("")
+            const numberString: string[] = "0123456789.".split("");
             for (let i = 0; i < string.length; i++) {
                 if (!numberString.includes(string.charAt(i))) {
-                    logger("ain't number", string)
-                    return false
+                    logger("ain't number", string);
+                    return false;
                 }
             }
-            return true
+            return true;
         }
     }
 }
 
 function logger(title: string, text: unknown) {
     if (typeof text == "number" || typeof text == "string") {
-        console.log(`[${title}]: ` + text)
+        console.log(`[${title}]: ` + text);
     } else {
-        console.log(`[${title}]:`, text)
+        console.log(`[${title}]:`, text);
     }
 }
