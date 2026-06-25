@@ -10,7 +10,9 @@ export type Token = {
         | "openSquareBracket"
         | "closeSquareBracket"
         | "openCurlyBracket"
-        | "closeCurlyBracket";
+        | "closeCurlyBracket"
+        | "comma"
+        | "string";
     value: string;
 };
 
@@ -99,6 +101,12 @@ export default function (code: string): Token[] {
                 });
                 logger('sliced "', keyword);
                 logger("now", code);
+            } else if (keyCharacter == ",") {
+                token.push({
+                    type: "comma",
+                    value: ",",
+                });
+                logger("sliced ,", ",");
             } else {
                 slice = 1;
                 logger("now", code);

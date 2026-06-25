@@ -1,20 +1,51 @@
 [
     {
-        "name": "make",
-        "inside": [
-            { "name": "a", "inside": [] },
-            { "name": "10", "inside": [] }
+        "type": "FunctionCall",
+        "call": {
+            "type": "thing",
+            "value": "log"
+        },
+        "argg": [
+            {
+                "type": "String",
+                "value": "\"aa\""
+            },
+            {
+                "type": "FunctionCall",
+                "call": {
+                    "type": "thing",
+                    "value": "g"
+                },
+                "argg": [
+                    []
+                ]
+            },
+            {
+                "type": "FunctionCall",
+                "call": {
+                    "type": "thing",
+                    "value": "g"
+                },
+                "argg": [
+                    {
+                        "type": "String",
+                        "value": "\"bb\""
+                    }
+                ]
+            }
         ]
     },
     {
-        "name": "add",
-        "inside": [
-            { "name": "a", "inside": [] },
-            { "name": "20", "inside": [] }
+        "type": "FunctionCall",
+        "call": {
+            "type": "thing",
+            "value": "log"
+        },
+        "argg": [
+            {
+                "type": "String",
+                "value": "\"bb\""
+            }
         ]
-    },
-    { "name": "pointer", "inside": [
-        { "name": "a", "inside": [] }
-        ] 
     }
 ]
