@@ -34,3 +34,5 @@ function execution(code) {
     const token: Token[] = lexer(code);
     parser(token);
 }
+
+

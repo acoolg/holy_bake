@@ -5,7 +5,7 @@
     "moduleResolution": "NodeNext",
     "types": ["node"],
     "skipLibCheck": true,
-    "noCheck": true
+    "noCheck": false
   },
   "exclude": ["eslint.config.mts"]
 }

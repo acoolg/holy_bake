@@ -1,11 +1,12 @@
 import { Token } from "../lexer.js";
-import { treeItem } from "./treeItems.js";
+import { TreeFunctionCall, treeItem, TreeNumber, TreeString, TreeVariableUse } from "./treeItems.js";
 import { cutLine, scopeFind, tokenSplit } from "./tools.js";
+import { error } from "node:console";
 
 export default function (token: Token[]) {
 
-    logger("egg", cutLine(token));
-    logger("meeee", prase(token));
+    logger("cutLine", cutLine(token));
+    logger("prase", prase(token));
 
     console.dir(prase(token), { depth: null });
 }
@@ -31,14 +32,30 @@ function prase(code: Token[]) {
 
         if (keyToken.type == "thing") {
             return handleThing(token);
-        } else if (keyToken.type == "string") {
-            logger("found string", keyToken);
+        }
+
+        if (keyToken.type == "string") {
             return handleString(token)
         }
+        
+        if (keyToken.type == "number") {
+            return handleNumber(token)
+        }
+        
+        throw new Error("unknow token")
     }
 }
 
-function handleString(token: Token[]) {
+function handleNumber(token: Token[]):TreeNumber {
+    const keyToken = token[0];
+
+    return {
+        type: "Number",
+        value: keyToken.value,
+    };
+}
+
+function handleString(token: Token[]):TreeString {
     const keyToken = token[0];
     logger("found string", keyToken);
     return {
@@ -47,23 +64,30 @@ function handleString(token: Token[]) {
     };
 }
 
-function handleThing(token: Token[]) {
+function handleThing(token: Token[]): TreeFunctionCall | TreeVariableUse{
+    const keyToken = token[0];
     // handle functionCall
     logger("find function", scopeFind(token, "openRoundBracket"))
+
     if (scopeFind(token, "openRoundBracket")) {
-        const keyToken = token[0];
-        const inside = tokenSplit(token.slice(2, token.length - 1), "comma");
-        logger("1", inside);
-        logger("2", token.slice(2, token.length - 1));
-        logger("3", token);
+
+        const inside = tokenSplit(
+            token.slice(2, token.length - 1),
+            "comma"
+        );
+
         return {
             type: "FunctionCall",
-            call: keyToken,
+            call: keyToken.value,
             argg: inside.map((e) => {
                 return prase(e);
             }),
         };
-        prase(inside);
+    } else {
+        return {
+            type: "VariableUse",
+            name: keyToken.value
+        }
     }
 }
 

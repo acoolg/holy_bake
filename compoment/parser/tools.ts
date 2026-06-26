@@ -53,7 +53,7 @@ export function tokenSplit(text: Token[], key: string) {
     let scope = 0;
 
     text.forEach((element) => {
-        if (element.type.endsWith("bracket")) {
+        if (element.type.endsWith("Bracket")) {
             if (element.type.startsWith("start")) {
                 scope += 1;
             } else {
@@ -80,9 +80,9 @@ export function scopeFind(code: Token[], type: string): boolean {
     let scope = 0;
 
     let valid = false
-    
+
     code.forEach((element) => {
-        if (element.type.endsWith("bracket") && element.type !== type) {
+        if (element.type.endsWith("Bracket") && element.type !== type) {
             if (element.type.startsWith("start")) {
                 scope += 1;
             } else {
@@ -96,4 +96,15 @@ export function scopeFind(code: Token[], type: string): boolean {
     })
 
     return valid
+}
+
+export function isStringedNumber(string: string): boolean {
+    const numberString: string[] = "0123456789.".split("");
+    for (let i = 0; i < string.length; i++) {
+        if (!numberString.includes(string.charAt(i))) {
+            logger("ain't number", string);
+            return false;
+        }
+    }
+    return true;
 }
