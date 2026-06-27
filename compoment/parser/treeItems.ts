@@ -11,7 +11,7 @@ export type TreeString = {
 
 export type TreeNumber = {
     type: "Number";
-    value: number;
+    value: string;
 };
 
 export type TreeIf = {

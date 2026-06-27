@@ -1,35 +1,18 @@
 [
     {
         "type": "FunctionCall",
-        "call": {
-            "type": "thing",
-            "value": "log"
-        },
+        "call": "log",
         "argg": [
-            {
-                "type": "String",
-                "value": "\"aa\""
-            },
+            { "type": "String", "value": "\"aa\"" },
             {
                 "type": "FunctionCall",
-                "call": {
-                    "type": "thing",
-                    "value": "g"
-                },
+                "call": "g",
                 "argg": [
-                    []
-                ]
-            },
-            {
-                "type": "FunctionCall",
-                "call": {
-                    "type": "thing",
-                    "value": "g"
-                },
-                "argg": [
+                    { "type": "String", "value": "\"bb\"" },
                     {
-                        "type": "String",
-                        "value": "\"bb\""
+                        "type": "FunctionCall",
+                        "call": "g",
+                        "argg": [{ "type": "String", "value": "\"bb\"" }]
                     }
                 ]
             }
@@ -37,15 +20,7 @@
     },
     {
         "type": "FunctionCall",
-        "call": {
-            "type": "thing",
-            "value": "log"
-        },
-        "argg": [
-            {
-                "type": "String",
-                "value": "\"bb\""
-            }
-        ]
+        "call": "log",
+        "argg": [{ "type": "String", "value": "\"bb\"" }]
     }
 ]

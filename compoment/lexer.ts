@@ -115,7 +115,7 @@ export default function (code: string): Token[] {
 
         return token;
 
-        function getKeyString(text) {
+        function getKeyString(text: string) {
             let pointer: number = 1;
             const key: string[] = ['"'];
 
@@ -133,7 +133,7 @@ export default function (code: string): Token[] {
             };
         }
 
-        function getKeyNumber(text) {
+        function getKeyNumber(text: string) {
             const numberString: string[] = "0123456789.".split("");
 
             let pointer: number = 0;
@@ -150,7 +150,7 @@ export default function (code: string): Token[] {
             };
         }
 
-        function getKeyWord(text) {
+        function getKeyWord(text: string) {
             const validFullString: string[] =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890$_".split(
                     "",
@@ -167,7 +167,7 @@ export default function (code: string): Token[] {
             };
         }
 
-        function getKeyExec(text) {
+        function getKeyExec(text: string) {
             let pointer: number = 0;
             const key: string[] = [];
             while (validExecCharacter.includes(text.charAt(pointer))) {
@@ -181,7 +181,7 @@ export default function (code: string): Token[] {
             };
         }
 
-        function getKeyBracket(text) {
+        function getKeyBracket(text: "(" | ")" | "{" | "}" | "[" | "]") {
             const Bracket = {
                 "(": "openRoundBracket",
                 ")": "closeRoundBracket",
@@ -189,21 +189,21 @@ export default function (code: string): Token[] {
                 "]": "closeSquareBracket",
                 "{": "openCurlyBracket",
                 "}": "closeCurlyBracket",
-            };
+            } as const;
 
             return Bracket[text];
         }
 
-        function isStringedNumber(string: string): boolean {
-            const numberString: string[] = "0123456789.".split("");
-            for (let i = 0; i < string.length; i++) {
-                if (!numberString.includes(string.charAt(i))) {
-                    logger("ain't number", string);
-                    return false;
-                }
-            }
-            return true;
-        }
+        // function isStringedNumber(string: string): boolean {
+        //     const numberString: string[] = "0123456789.".split("");
+        //     for (let i = 0; i < string.length; i++) {
+        //         if (!numberString.includes(string.charAt(i))) {
+        //             logger("ain't number", string);
+        //             return false;
+        //         }
+        //     }
+        //     return true;
+        // }
     }
 }
 

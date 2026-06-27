@@ -1,0 +1,2 @@
+log("aa", log("bb", log("bb")));
+log("bb");

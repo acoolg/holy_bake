@@ -1,3 +1,5 @@
+import { Token } from "../lexer.js";
+
 export function cutLine(code: Token[]) {
     const scope = {
         round: 0,
@@ -107,4 +109,8 @@ export function isStringedNumber(string: string): boolean {
         }
     }
     return true;
+}
+
+function logger(title: string, ...text: unknown[]) {
+    console.log(`[${title}]:`, ...text);
 }
