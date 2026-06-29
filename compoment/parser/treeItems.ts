@@ -31,10 +31,18 @@ export type TreeVariableUse = {
     name: string;
 };
 
+export type TreeBinaryExpression = {
+    type: "binaryExpression";
+    name: "+" | "-" | "*" | "/" | "=" | "<" | ">" | "!";
+    left: treeItem;
+    right: treeItem;
+};
+
 export type treeItem =
     | TreeFunctionCall
     | TreeString
     | TreeNumber
     | TreeIf
     | TreeVariableDeclaration
-    | TreeVariableUse;
+    | TreeVariableUse
+    | TreeBinaryExpression;

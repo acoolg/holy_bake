@@ -1,5 +1,6 @@
 import { Token } from "../lexer.js";
 import {
+    TreeBinaryExpression,
     TreeFunctionCall,
     treeItem,
     TreeNumber,
@@ -41,10 +42,12 @@ function parseCodeFile(code: Token[]): treeItem[] {
 * Process a line of code
 * @param {Token[]} code that line of code
 */ 
-function parse(code: Token[]): TreeFunctionCall | TreeString | TreeNumber | TreeVariableUse {
+function parse(code: Token[]): treeItem {
     const keyToken = code[0];
 
     logger("readline", code);
+
+    // normal type handle
 
     if (keyToken.type == "thing") {
         return handleThing(code);
@@ -58,8 +61,16 @@ function parse(code: Token[]): TreeFunctionCall | TreeString | TreeNumber | Tree
         return handleNumber(code);
     }
 
+    // calc expresion handle
+
     throw new Error("unknow token");
 }
+
+// function handleBinaryExpression(token: Token[]): TreeBinaryExpression {
+//     const bindingPower = {
+//         "=": 
+//     }
+// }
 
 /**
 * Process the Number type

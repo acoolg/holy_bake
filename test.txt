@@ -1,2 +1,3 @@
 log("aa", log("bb", log("bb")));
-log("bb");
+log(1 >= 1);
+

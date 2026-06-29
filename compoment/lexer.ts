@@ -12,9 +12,16 @@ export type Token = {
         | "openCurlyBracket"
         | "closeCurlyBracket"
         | "comma"
-        | "string";
+        | "string"
+        | "sysCall"
+        | "binaryExpression"
+        | "is";
     value: string;
 };
+
+const spcialWordList = [
+    "function", "const", "if", "var", "repeat"
+]
 
 export default function (code: string): Token[] {
     const token = tokenize(code);
@@ -47,10 +54,18 @@ export default function (code: string): Token[] {
                 const keyword = getKeyWord(code);
                 slice = keyword.slice;
 
-                token.push({
-                    type: "thing",
-                    value: keyword.key,
-                });
+                if (spcialWordList.includes(keyword.key)) {
+                    token.push({
+                        type: "sysCall",
+                        value: keyword.key,
+                    });
+                } else {
+                    token.push({
+                        type: "thing",
+                        value: keyword.key,
+                    });
+                }
+
 
                 logger("sliced thing", keyword);
             } else if (keyCharacter === ".") {
@@ -80,10 +95,19 @@ export default function (code: string): Token[] {
                 // !, <, >, = situation
                 const keyword = getKeyExec(code);
                 slice = keyword.slice;
-                token.push({
-                    type: "exec",
-                    value: keyword.key,
-                });
+
+                if (keyword.key == "=") {
+                    token.push({
+                        type: "is",
+                        value: keyword.key,
+                    });
+                } else {
+                    token.push({
+                        type: "binaryExpression",
+                        value: keyword.key,
+                    });
+                }
+                
                 logger("sliced exec", keyword);
             } else if (keyCharacter == ";") {
                 // ; situation
