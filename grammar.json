@@ -8,5 +8,10 @@
         "name": "+",
         "type": "calculate",
         "espects" :["number"]
+    },
+    {
+        "name": "pointer",
+        "type": "pointer",
+        "espects" :["use"]
     }
 ]

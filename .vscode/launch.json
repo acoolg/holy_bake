@@ -5,11 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "command": "npm run dev test",
+            "name": "Run npm dev",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
             "name": "Launch Program",
             "program": "${workspaceFolder}/index.js",
             "request": "launch",
             "skipFiles": ["<node_internals>/**"],
             "type": "node"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug TS (tsx)",
+            "runtimeExecutable": "tsx",
+            "runtimeArgs": ["tsx", "index.ts"],
+            "skipFiles": ["<node_internals>/**"]
         }
     ]
 }
