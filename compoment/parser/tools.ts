@@ -78,12 +78,13 @@ export function tokenSplit(text: Token[], key: string) {
     return result;
 }
 
-export function scopeFind(code: Token[], type: string): boolean {
+export function scopeFind(code: Token[], type: string) {
     let scope = 0;
 
     let valid = false
+    let CarIndex = 0
 
-    code.forEach((element) => {
+    code.forEach((element, index) => {
         if (element.type.endsWith("Bracket") && element.type !== type) {
             if (element.type.startsWith("start")) {
                 scope += 1;
@@ -94,10 +95,14 @@ export function scopeFind(code: Token[], type: string): boolean {
 
         if (element.type == type && scope == 0) {
             valid = true
+            CarIndex = index
         }
     })
 
-    return valid
+    return {
+        valid: valid,
+        index: CarIndex
+    }
 }
 
 export function isStringedNumber(string: string): boolean {
@@ -109,6 +114,45 @@ export function isStringedNumber(string: string): boolean {
         }
     }
     return true;
+}
+
+export enum brackets {
+    round,
+    sqare,
+    curly
+}
+
+export function findCloseBrackets(tokens: Token[], bracket: brackets) {
+    const [open, close] =
+        bracket === brackets.round
+            ? ["openRoundBracket", "closeRoundBracket"]
+            : bracket === brackets.sqare
+            ? ["openSquareBracket", "closeSquareBracket"]
+            : ["openCurlyBracket", "closeCurlyBracket"];
+
+    let depth = 0;
+    let start = -1;
+
+    for (let i = 0; i < tokens.length; i++) {
+        if (tokens[i].type === open) {
+            if (depth === 0) {
+                start = i;
+            }
+            depth++;
+        } else if (tokens[i].type === close) {
+            depth--;
+
+            if (depth === 0) {
+                return {
+                    slice: tokens.slice(start + 1, i),
+                };
+            }
+        }
+    }
+
+    return {
+        slice: tokens,
+    };
 }
 
 function logger(title: string, ...text: unknown[]) {

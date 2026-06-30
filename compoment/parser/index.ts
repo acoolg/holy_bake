@@ -5,9 +5,10 @@ import {
     treeItem,
     TreeNumber,
     TreeString,
+    TreeVariableDeclaration,
     TreeVariableUse,
 } from "./treeItems.js";
-import { cutLine, scopeFind, tokenSplit } from "./tools.js";
+import { cutLine, scopeFind, tokenSplit, brackets, findCloseBrackets } from "./tools.js";
 
 
 /**
@@ -61,9 +62,13 @@ function parse(code: Token[]): treeItem {
         return handleNumber(code);
     }
 
+    if (keyToken.type == "sysCall") {
+        return handleNumber(code);
+    }
+
     // calc expresion handle
 
-    throw new Error("unknow token");
+    throw new Error("unknow token " + keyToken.type);
 }
 
 // function handleBinaryExpression(token: Token[]): TreeBinaryExpression {
@@ -71,6 +76,10 @@ function parse(code: Token[]): treeItem {
 //         "=": 
 //     }
 // }
+
+function handleSysCall(token: Token[]): TreeVariableDeclaration {
+    const keyToken = code[0];
+}
 
 /**
 * Process the Number type
@@ -109,8 +118,9 @@ function handleThing(token: Token[]): TreeFunctionCall | TreeVariableUse {
     // handle functionCall
     logger("find function", scopeFind(token, "openRoundBracket"));
 
-    if (scopeFind(token, "openRoundBracket")) {
-        const inside = tokenSplit(token.slice(2, token.length - 1), "comma");
+    if (scopeFind(token, "openRoundBracket").valid) {
+        const inside = tokenSplit(findCloseBrackets(token, brackets.round).slice, "comma");
+        logger("a", findCloseBrackets(token, brackets.round).slice)
 
         return {
             type: "FunctionCall",

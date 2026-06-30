@@ -22,7 +22,7 @@ export type TreeIf = {
 
 export type TreeVariableDeclaration = {
     type: "VariableDeclaration";
-    name: string;
+    nameSpace: string;
     value: treeItem;
 };
 

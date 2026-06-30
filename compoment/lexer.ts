@@ -130,6 +130,7 @@ export default function (code: string): Token[] {
                     type: "comma",
                     value: ",",
                 });
+                slice = 1;
                 logger("sliced ,", ",");
             } else {
                 slice = 1;
@@ -152,7 +153,7 @@ export default function (code: string): Token[] {
             pointer += 1;
 
             return {
-                key: key.join(""),
+                key: key.join("").slice(1, key.length - 1),
                 slice: pointer,
             };
         }

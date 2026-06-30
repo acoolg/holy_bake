@@ -3,16 +3,27 @@
         "type": "FunctionCall",
         "call": "log",
         "argg": [
-            { "type": "String", "value": "\"aa\"" },
+            {
+                "type": "String",
+                "value": "\"aa\""
+            },
             {
                 "type": "FunctionCall",
-                "call": "g",
+                "call": "log",
                 "argg": [
-                    { "type": "String", "value": "\"bb\"" },
+                    {
+                        "type": "String",
+                        "value": "\"bb\""
+                    },
                     {
                         "type": "FunctionCall",
-                        "call": "g",
-                        "argg": [{ "type": "String", "value": "\"bb\"" }]
+                        "call": "log",
+                        "argg": [
+                            {
+                                "type": "String",
+                                "value": "\"bb\""
+                            }
+                        ]
                     }
                 ]
             }
@@ -21,6 +32,15 @@
     {
         "type": "FunctionCall",
         "call": "log",
-        "argg": [{ "type": "String", "value": "\"bb\"" }]
+        "argg": [
+            {
+                "type": "Number",
+                "value": "1"
+            }
+        ]
+    },
+    {
+        "type": "Number",
+        "value": "var"
     }
 ]
