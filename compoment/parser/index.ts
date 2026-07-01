@@ -63,10 +63,12 @@ function parse(code: Token[]): treeItem {
     }
 
     if (keyToken.type == "sysCall") {
-        return handleNumber(code);
+        return handleSysCall(code);
     }
 
     // calc expresion handle
+
+    if (code.)
 
     throw new Error("unknow token " + keyToken.type);
 }
@@ -78,7 +80,19 @@ function parse(code: Token[]): treeItem {
 // }
 
 function handleSysCall(token: Token[]): TreeVariableDeclaration {
-    const keyToken = code[0];
+    const keyToken = token[0];
+    
+    if (keyToken.value == "var") {
+        const nameSpace = token[1].value
+
+        return {
+            type:"VariableDeclaration",
+            nameSpace: nameSpace,
+            value: parse(token.slice(3))
+        }
+    }
+    
+    throw new Error("not systemCall");
 }
 
 /**

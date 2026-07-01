@@ -1,41 +1,26 @@
-# HOLY BAKE
+<h2><img src="holybake.png" width=100%></h2>
 
-**write less, bug more**  
-**_write 58% less code_**
+<h3 align="center">write less, bug more</h3> 
+
 
 ## Compile a text to mcfunction
 
 **Input:**
 
-```fuck
-20 say cool thing
-100 command title @a title betgwegtbh
-50 node walk 0 100 20 2
-# balabo balaba aaa
-60 node walk 19 89 64 2
+```hbk
+some human readable code
 ```
 
 **Output:**
 
 ```mcfunction
-execute as @a[scores={cutscene.tick=20},c=1] run say say cool thing
-execute as @a[scores={cutscene.tick=100},c=1] at @s run command title @a title betgwegtbh
-execute as @a[scores={cutscene.tick=50},c=1] run summon runners:walk_target 0 100 20
-execute as @a[scores={cutscene.tick=50},c=1] positioned 0 100 20 run scoreboard players set @e[c=1] npcmove.index 2
-# balabo balaba aaa
-execute as @a[scores={cutscene.tick=60},c=1] run summon runners:walk_target 19 89 64
-execute as @a[scores={cutscene.tick=60},c=1] positioned 19 89 64 run scoreboard players set @e[c=1] npcmove.index 2
+execute hell
 ```
 
 ## Able to plugin
 
-Do it yourself. I'm not helping you.
-
-## Any bug
-
-Every bug is because of the holy reason by God.  
-Not my fault.  
-It works on my computer.
+NO  
+wish it will be
 
 ## How to use
 
@@ -52,3 +37,7 @@ npm run make
 
 if you don't understand what the hell is `runners:walk_target` or `npcmove.index`
 well that's a new mcbe addon i'm working on
+
+
+> [!WARNING]  
+> this software is still in very early develoment, the software basic feature wasn't finish, do not use
