@@ -155,6 +155,17 @@ export function findCloseBrackets(tokens: Token[], bracket: brackets) {
     };
 }
 
+export function isExpresionLine(line:Token[]):boolean {
+
+    for(let i = 0; i < line.length; i += 1) {
+        if (line[i].type == "binaryExpression") {
+            return true
+        }
+    }
+
+    return false
+}
+
 function logger(title: string, ...text: unknown[]) {
     console.log(`[${title}]:`, ...text);
 }

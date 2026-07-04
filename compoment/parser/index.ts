@@ -8,7 +8,7 @@ import {
     TreeVariableDeclaration,
     TreeVariableUse,
 } from "./treeItems.js";
-import { cutLine, scopeFind, tokenSplit, brackets, findCloseBrackets } from "./tools.js";
+import { cutLine, scopeFind, tokenSplit, brackets, findCloseBrackets, isExpresionLine } from "./tools.js";
 
 
 /**
@@ -47,6 +47,12 @@ function parse(code: Token[]): treeItem {
     const keyToken = code[0];
 
     logger("readline", code);
+    
+    // calc expresion handle
+
+    if (isExpresionLine(code)) {
+        return handleBinaryExpression(code)
+    }
 
     // normal type handle
 
@@ -66,18 +72,14 @@ function parse(code: Token[]): treeItem {
         return handleSysCall(code);
     }
 
-    // calc expresion handle
-
-    if (code.)
+    
 
     throw new Error("unknow token " + keyToken.type);
 }
 
-// function handleBinaryExpression(token: Token[]): TreeBinaryExpression {
-//     const bindingPower = {
-//         "=": 
-//     }
-// }
+function handleBinaryExpression(token: Token[]) {
+    // pratt parsing
+}
 
 function handleSysCall(token: Token[]): TreeVariableDeclaration {
     const keyToken = token[0];
@@ -154,3 +156,5 @@ function handleThing(token: Token[]): TreeFunctionCall | TreeVariableUse {
 function logger(title: string, ...text: unknown[]): void {
     console.log(`[${title}]:`, ...text);
 }
+
+
