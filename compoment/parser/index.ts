@@ -79,6 +79,7 @@ function parse(code: Token[]): treeItem {
 
 function handleBinaryExpression(token: Token[]) {
     // pratt parsing
+    
 }
 
 function handleSysCall(token: Token[]): TreeVariableDeclaration {

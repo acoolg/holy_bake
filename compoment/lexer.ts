@@ -13,7 +13,7 @@ export type Token = {
         | "closeCurlyBracket"
         | "comma"
         | "string"
-        | "sysCall"
+        | "statement"
         | "binaryExpression"
         | "is";
     value: string;
