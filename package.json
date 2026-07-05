@@ -5,11 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "tsx index.ts test && npx eslint index.ts",
+    "test": "tsx --test",
+    "dev": "tsx index.ts test",
     "make": "tsx index.js make",
     "clean": "npx rimraf dist && npm install",
     "fix": "npx eslint . --fix",
-    "dev": "tsx index.ts test",
     "doctor": "npm audit && npm outdated",
     "format": "npx prettier --tab-width 4 . --write",
     "lint": "npx eslint"
@@ -17,7 +17,8 @@
   "author": "acoolg",
   "license": "MIT",
   "dependencies": {
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "test": "^3.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",

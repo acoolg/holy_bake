@@ -68,8 +68,8 @@ function parse(code: Token[]): treeItem {
         return handleNumber(code);
     }
 
-    if (keyToken.type == "sysCall") {
-        return handleSysCall(code);
+    if (keyToken.type == "statement") {
+        return handleStatement(code);
     }
 
     
@@ -82,7 +82,7 @@ function handleBinaryExpression(token: Token[]) {
     
 }
 
-function handleSysCall(token: Token[]): TreeVariableDeclaration {
+function handleStatement(token: Token[]): TreeVariableDeclaration {
     const keyToken = token[0];
     
     if (keyToken.value == "var") {
