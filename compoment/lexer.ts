@@ -56,7 +56,7 @@ export default function (code: string): Token[] {
 
                 if (spcialWordList.includes(keyword.key)) {
                     token.push({
-                        type: "sysCall",
+                        type: "statement",
                         value: keyword.key,
                     });
                 } else {
