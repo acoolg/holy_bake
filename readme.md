@@ -8,13 +8,46 @@
 **Input:**
 
 ```hbk
-some human readable code
+@var a = "minecraft:creaper"
+
+execute as @a at @s run summon $a
+
+@repeat (1 + 1) {
+    execute as @a at @s run summon $a
+    say summond $a
+}
+
+# comment
+
+@var count = 0
+
+@repeat (5) {
+    $count += 1
+    execute as @a at @s run summon $a
+    say summond $a $count
+}
 ```
 
 **Output:**
 
 ```mcfunction
-execute hell
+execute as @a at @s run summon minecraft:creaper
+
+execute as @a at @s run summon minecraft:creaper
+execute as @a at @s run summon minecraft:creaper
+
+#comment
+
+execute as @a at @s run summon minecraft:creaper
+say summond minecraft:creaper 1
+execute as @a at @s run summon minecraft:creaper
+say summond minecraft:creaper 2
+execute as @a at @s run summon minecraft:creaper
+say summond minecraft:creaper 3
+execute as @a at @s run summon minecraft:creaper
+say summond minecraft:creaper 4
+execute as @a at @s run summon minecraft:creaper
+say summond minecraft:creaper 5
 ```
 
 ## Able to plugin
