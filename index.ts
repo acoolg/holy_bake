@@ -1,7 +1,8 @@
 import * as fs from "node:fs";
 import * as process from "node:process";
-import { default as lexer, Token } from "./src/lexer.ts";
+import { default as lexer, Token } from "./src/lexer/lexer.js";
 import { default as parser } from "./src/parser/index.js";
+import { treeItem } from "./src/parser/treeItems.js";
 
 const command: string | undefined = process.argv[2];
 
@@ -32,5 +33,5 @@ if (command == "make") {
 
 function execution(code) {
     const token: Token[] = lexer(code);
-    parser(token);
+    // const tree: treeItem[] = parser(token);
 }

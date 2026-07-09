@@ -1,3 +1,5 @@
 {
-    "recommendations": ["ivanmota.escape-the-maze"]
+    "recommendations": [
+        "dbaeumer.vscode-eslint"
+    ]
 }

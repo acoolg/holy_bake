@@ -1,4 +1,4 @@
-import { Token } from "../lexer.js";
+import { Token } from "../lexer/lexer.js";
 
 export function cutLine(code: Token[]) {
     const scope = {

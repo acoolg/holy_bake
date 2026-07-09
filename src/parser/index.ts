@@ -1,4 +1,4 @@
-import { Token } from "../lexer.js";
+import { Token } from "../lexer/lexer.js";
 import {
     TreeBinaryExpression,
     TreeFunctionCall,
